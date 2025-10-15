@@ -6,6 +6,8 @@ from rich.table import Table
 from .storage import (
     create_task,
     get_tasks,
+    save_database,
+    read_database,
 )
 
 
@@ -58,4 +60,45 @@ def show_tasks():
     print(f"Created Date: {created_date}")
     
     print()
+
+def update_task():
+    tasks = read_database()
+    r = int(input("O'zgartirmoqchi bo'gan task ID sini kiriting: "))
+    for task in tasks:
+        if task["id"] == r:
+            new_name = input("Yangi nom: ")
+            task["name"] = new_name or task["name"]
+
+            new_description = input("Yangi description: ")
+            task["description"] = new_description or task["description"]
+
+            new_category = input("Yangi category: ")
+            task["category"] = new_category or task["category"]
+
+            save_database(tasks)
+            print("Task muvaffaqiyatli o'zgartirildi!")
+            return tasks 
+        
+def delete_task():
+    tasks = read_database()
+    r = int(input("O'chirmoqchi bo'lgan task ID sini kiriting: "))
+    for task in tasks:
+        if task["id"] == r:
+            tasks.remove(task)
+            save_database(tasks)
+            print("Task muvaffaqiyatli o'chirildi!")
+            return tasks
+        
+def completed_task():
+    tasks = read_database()
+    r = int(input("Statusni o'zgartirmoqchi bo'lgan task ID sini kiriting: "))
+    for task in tasks:
+        if task["id"] == r:
+                task["status"] = not task["status"]
+                save_database(tasks)
+                print("Task statusni muvaffaqiyatli o'zgartirildi!")
+                return tasks
+
+        
+    
     

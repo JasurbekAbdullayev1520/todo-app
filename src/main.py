@@ -1,6 +1,10 @@
+import sys
 from .commands import (
     add_task,
     show_tasks,
+    update_task,
+    delete_task,
+    completed_task
 )
 
 
@@ -19,4 +23,16 @@ def main():
             add_task()
         elif choice == "2":
             show_tasks()
+        elif choice == "3":
+            update_task()
+        elif choice == "4":
+            delete_task()
+        elif choice == "5":
+            completed_task()
+        elif choice == "6":
+            sys.exit()
+
+
+
+
         
